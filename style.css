@@ -1,0 +1,334 @@
+/* ==========================================================================
+   CSS CUSTOM DESIGN PROPERTIES
+   ========================================================================== */
+:root {
+  --color-green-200: hsl(148, 38%, 91%);
+  --color-green-500: hsl(169, 82%, 35%);
+  --color-green-600: hsl(169, 82%, 27%);
+  --color-red: hsl(0, 66%, 54%);
+  --color-neutral-400: hsl(186, 15%, 59%);
+  --color-neutral-900: hsl(187, 24%, 22%);
+  --color-white: hsl(0, 0%, 100%);
+  
+  --font-family: 'Karla', sans-serif;
+  
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+}
+
+/* ==========================================================================
+   GLOBAL STRUCTURE RESET STRATEGY
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-green-200);
+  color: var(--color-neutral-900);
+  font-size: 1rem;
+  line-height: 1.5;
+  min-block-size: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-md) var(--space-sm);
+}
+
+/* ==========================================================================
+   FORM CONTAINER LAYOUT WRAPPERS
+   ========================================================================== */
+.main-container {
+  width: 100%;
+  max-inline-size: 730px;
+}
+
+.card {
+  background-color: var(--color-white);
+  padding: var(--space-md);
+  border-radius: 1rem;
+}
+
+@media (min-width: 600px) {
+  .card {
+    padding: var(--space-lg);
+  }
+}
+
+.card__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  margin-block-end: var(--space-md);
+  letter-spacing: -1px;
+}
+
+/* ==========================================================================
+   BEM FORM SYSTEM ARCHITECTURE
+   ========================================================================== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@media (min-width: 600px) {
+  .form__row--split {
+    flex-direction: row;
+    gap: var(--space-md);
+  }
+  .form__row--split > * {
+    flex: 1;
+  }
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form__fieldset {
+  border: none;
+}
+
+.form__label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-neutral-900);
+}
+
+.form__required {
+  color: var(--color-green-600);
+  margin-inline-start: 0.25rem;
+}
+
+/* Field Input Components */
+.form__input,
+.form__textarea {
+  font-family: inherit;
+  font-size: 1.125rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 0.5rem;
+  color: var(--color-neutral-900);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+
+.form__textarea {
+  min-block-size: 240px;
+  resize: vertical;
+}
+
+@media (min-width: 600px) {
+  .form__textarea {
+    min-block-size: 105px;
+  }
+}
+
+/* Hover Elements Interaction States */
+.form__input:hover,
+.form__textarea:hover,
+.form__radio-wrapper:hover,
+.form__checkbox-wrapper:hover {
+  border-color: var(--color-green-600);
+}
+
+/* Focus States */
+.form__input:focus,
+.form__textarea:focus {
+  border-color: var(--color-green-600);
+}
+
+/* Custom Interactive Box Wrap Layout Rules */
+.form__radio-wrapper,
+.form__checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Custom Checkbox Placement Tweak */
+.form__checkbox-wrapper {
+  border: none;
+  padding: var(--space-xs) 0 0 0;
+  align-items: flex-start;
+}
+
+/* Selected Element Active Wrap Highlight Classes */
+.form__radio-wrapper--selected {
+  background-color: var(--color-green-200);
+  border-color: var(--color-green-600);
+}
+
+/* Accessible Native Element Hiding Pattern */
+.form__radio,
+.form__checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Custom Checkbox/Radio Component Architecture */
+.form__custom-radio {
+  inline-size: 20px;
+  block-size: 20px;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 50%;
+  margin-inline-end: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.form__radio:checked + .form__custom-radio {
+  border-color: var(--color-green-600);
+  background-image: url('./assets/images/icon-radio-selected.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.form__custom-checkbox {
+  inline-size: 18px;
+  block-size: 18px;
+  border: 1px solid var(--color-neutral-400);
+  border-radius: 3px;
+  margin-inline-end: 1rem;
+  margin-block-start: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.form__checkbox:checked + .form__custom-checkbox {
+  border: none;
+  background-image: url('./assets/images/icon-checkbox-check.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Keyboard Navigation Focus Indicator Support Elements */
+.form__radio:focus-visible + .form__custom-radio,
+.form__checkbox:focus-visible + .form__custom-checkbox {
+  outline: 2px solid var(--color-green-600);
+  outline-offset: 4px;
+}
+
+/* Error Element Display Architecture Styles */
+.form__group--error .form__input,
+.form__group--error .form__textarea,
+.form__group--error .form__radio-wrapper {
+  border-color: var(--color-red);
+}
+
+.form__error-message {
+  color: var(--color-red);
+  font-size: 0.875rem;
+  display: none;
+}
+
+.form__group--error > .form__error-message,
+.form__fieldset.form__group--error .form__error-message {
+  display: block;
+}
+
+/* ==========================================================================
+   SUBMIT INTERACTIVE TRIGGER BUTTON
+   ========================================================================== */
+.form__submit-btn {
+  background-color: var(--color-green-600);
+  color: var(--color-white);
+  border: none;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  margin-block-start: var(--space-xs);
+}
+
+.form__submit-btn:hover,
+.form__submit-btn:focus-visible {
+  background-color: var(--color-neutral-900);
+  outline: none;
+}
+
+/* ==========================================================================
+   TOAST MODAL NOTIFICATION PATTERNS
+   ========================================================================== */
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+  padding: var(--space-md);
+  border-radius: 0.75rem;
+  width: calc(100% - 32px);
+  max-inline-size: 450px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toast.hidden {
+  opacity: 0;
+  transform: translate(-50%, -40px);
+  pointer-events: none;
+}
+
+.toast__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-block-end: 0.5rem;
+}
+
+.toast__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.toast__body {
+  font-size: 0.875rem;
+  color: var(--color-green-200);
+}
+
+/* ==========================================================================
+   ATTRIBUTION FOOTER
+   ========================================================================== */
+.attribution {
+  font-size: 0.75rem;
+  text-align: center;
+  margin-block-start: var(--space-md);
+}
+.attribution a {
+  color: var(--color-green-600);
+  text-decoration: none;
+  font-weight: 700;
+}
+.attribution a:hover {
+  text-decoration: underline;
+}
